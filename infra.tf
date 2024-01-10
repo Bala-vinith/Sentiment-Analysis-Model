@@ -21,7 +21,7 @@ resource "google_compute_network" "sentiment-analysis-model-vpc" {
   auto_create_subnetworks = false
 }
 
-resource "google_compute_subnetwork" "mumbai_subnet" {
+resource "google_compute_subnetwork" "mumbaisubnet" {
   name          = "mumbai-subnet"
   region        = "asia-south1"
   network       = google_compute_network.sentiment-analysis-model-vpc.self_link
