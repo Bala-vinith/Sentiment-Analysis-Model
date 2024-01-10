@@ -1,0 +1,24 @@
+steps:
+  # Step 1: Clone the GitHub repository
+  - name: 'gcr.io/cloud-builders/git'
+    args: ['clone', 'https://github.com/Bala-vinith/gcp-ml-model.git', '.']
+
+  # Step 2: Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/your-image-name:$COMMIT_SHA', '.']
+
+  # Step 3: Push the Docker image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['tag', 'gcr.io/$PROJECT_ID/your-image-name:$COMMIT_SHA', 'gcr.io/$PROJECT_ID/your-image-name:latest']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/your-image-name:$COMMIT_SHA']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/your-image-name:latest']
+
+options:
+  # Set the substitutions for the image and tag
+  substitutions:
+    _ARTIFACT_REGISTRY_LOCATION: 'asia-south1'
+    _ARTIFACT_REGISTRY_REPOSITORY: 'Sentiment-Analysis-Model'
+    _IMAGE_NAME: 'Sentiment-Analysis-Model'
+    _TAG_NAME: '$COMMIT_SHA'
