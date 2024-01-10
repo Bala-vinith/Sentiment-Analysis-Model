@@ -16,22 +16,22 @@ provider "google" {
 }
 
 # VPC & subnet creation
-resource "google_compute_network" "sentiment_analysis_model_vpc" {
-  name                    = "sentiment_analysis_model_vpc"
+resource "google_compute_network" "sentiment-analysis-model-vpc" {
+  name                    = "sentiment-analysis-model-vpc"
   auto_create_subnetworks = false
 }
 
 resource "google_compute_subnetwork" "mumbai_subnet" {
   name          = "mumbai-subnet"
   region        = "asia-south1"
-  network       = google_compute_network.sentiment_analysis_model_vpc.self_link
+  network       = google_compute_network.sentiment-analysis-model-vpc.self_link
   ip_cidr_range = "10.1.0.0/24"
 }
 
 resource "google_compute_subnetwork" "delhi_subnet" {
   name          = "delhi-subnet"
   region        = "asia-south2"
-  network       = google_compute_network.sentiment_analysis_model_vpc.self_link
+  network       = google_compute_network.sentiment-analysis-model-vpc.self_link
   ip_cidr_range = "10.2.0.0/24"
 }
 
@@ -66,6 +66,6 @@ resource "google_cloud_run_service" "my_cloud_run_service" {
   }
 
   network {
-    name = google_compute_network.sentiment_analysis_model_vpc.name
+    name = google_compute_network.sentiment-analysis-model-vpc.name
   }
 }
