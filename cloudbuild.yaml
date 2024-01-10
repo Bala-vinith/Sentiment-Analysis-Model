@@ -11,9 +11,5 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/sentiment-analysis-model:$COMMIT_SHA']
 
-options:
-  # Set the substitutions for the image and tag
-  substitutions:
-    _ARTIFACT_REGISTRY_LOCATION: 'asia-south1'
-    _ARTIFACT_REGISTRY_REPOSITORY: 'sentiment-analysis-model'
-    _TAG_NAME: '$COMMIT_SHA'
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/sentiment-analysis-model:latest']
