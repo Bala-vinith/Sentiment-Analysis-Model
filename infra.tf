@@ -36,17 +36,15 @@ resource "google_compute_subnetwork" "delhi_subnet" {
 }
 
 # Artifact Registry
-resource "google_artifact_registry_repository" "example" {
+resource "google_artifact_registry_repository" "my-repo" {
+  location      = "us-central1"
   repository_id = "sentiment_analysis_model"
-  project      = "gcp-trainer-project-1"
-}
+  description   = "example docker repository"
+  format        = "DOCKER"
 
-output "repo_location" {
-  value = google_artifact_registry_repository.example.location
-}
-
-output "repo_name" {
-  value = google_artifact_registry_repository.example.name
+  docker_config {
+    immutable_tags = true
+  }
 }
 
 # Cloud Run
