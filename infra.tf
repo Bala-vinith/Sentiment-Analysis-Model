@@ -15,6 +15,20 @@ provider "google" {
   # credentials = "keys.json"
 }
 
+#artifact registry
+
+resource "google_artifact_registry_repository" "example" {
+  repository_id = "example-repo"
+  project      = google_project.project.project_id
+}
+
+output "repo_location" {
+  value = google_artifact_registry_repository.example.location
+}
+
+output "repo_name" {
+  value = google_artifact_registry_repository.example.name
+}
 
 
 
@@ -39,22 +53,6 @@ resource "google_compute_subnetwork" "delhi_subnet" {
   ip_cidr_range = "10.2.0.0/24"
 }
 
-#artifact registry
-
-resource "google_artifact_registry_repository" "example" {
-  repository_id = "example-repo"
-  project      = google_project.project.project_id
-}
-
-output "repo_location" {
-  value = google_artifact_registry_repository.example.location
-}
-
-output "repo_name" {
-  value = google_artifact_registry_repository.example.name
-}
-
-
 
 #cloud run
 
@@ -76,7 +74,8 @@ resource "google_cloud_run_service" "my_cloud_run_service" {
   }
 
   network {
-    egress_tag = google_compute_network.sentiment_analysis_model_vpc.self_link
+   name = google_compute_network.sentiment_analysis_model_vpc.name
+  
   }
   }
 }
