@@ -66,6 +66,6 @@ resource "google_cloud_run_service" "my_cloud_run_service" {
   }
 
   network {
-    name = google_compute_network.sentiment-analysis-model-vpc.name
+    egress_tag = google_compute_network.sentiment-analysis-model-vpc.name
   }
 }
