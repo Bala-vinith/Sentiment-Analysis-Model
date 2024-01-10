@@ -21,24 +21,24 @@ resource "google_compute_network" "sentiment-analysis-model-vpc" {
   auto_create_subnetworks = false
 }
 
-resource "google_compute_subnetwork" "mumbaisubnet" {
+resource "google_compute_subnetwork" "mumbai-subnet" {
   name          = "mumbai-subnet"
   region        = "asia-south1"
-  network       = google_compute_network.sentiment-analysis-model-vpc.self_link
+  network       = google_compute_network.sentiment-analysis-model-vpc.name
   ip_cidr_range = "10.1.0.0/24"
 }
 
-resource "google_compute_subnetwork" "delhi_subnet" {
+resource "google_compute_subnetwork" "delhi-subnet" {
   name          = "delhi-subnet"
   region        = "asia-south2"
-  network       = google_compute_network.sentiment-analysis-model-vpc.self_link
+  network       = google_compute_network.sentiment-analysis-model-vpc.name
   ip_cidr_range = "10.2.0.0/24"
 }
 
 # Artifact Registry
 resource "google_artifact_registry_repository" "my-repo" {
   location      = "us-central1"
-  repository_id = "sentiment_analysis_model"
+  repository_id = "sentiment-analysis-model"
   description   = "example docker repository"
   format        = "DOCKER"
 
@@ -48,8 +48,8 @@ resource "google_artifact_registry_repository" "my-repo" {
 }
 
 # Cloud Run
-resource "google_cloud_run_service" "my_cloud_run_service" {
-  name     = "sentiment_analysis_model"
+resource "google_cloud_run_service" "my-cloud-run-service" {
+  name     = "sentiment-analysis-model"
   location = "asia-south1"
 
   template {
