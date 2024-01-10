@@ -24,14 +24,14 @@ resource "google_compute_network" "sentiment-analysis-model-vpc" {
 resource "google_compute_subnetwork" "mumbai-subnet" {
   name          = "mumbai"
   region        = "asia-south1"
-  network       = google_compute_network.sentiment-analysis-model-vpc.name
+  network       = google_compute_network.sentiment-analysis-model-vpc.id
   ip_cidr_range = "10.5.0.0/24"
 }
 
 resource "google_compute_subnetwork" "delhi-subnet" {
   name          = "delhi"
   region        = "asia-south2"
-  network       = google_compute_network.sentiment-analysis-model-vpc.name
+  network       = google_compute_network.sentiment-analysis-model-vpc.id
   ip_cidr_range = "10.4.0.0/24"
 }
 
