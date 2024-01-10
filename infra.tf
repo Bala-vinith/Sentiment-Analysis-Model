@@ -22,17 +22,17 @@ resource "google_compute_network" "sentiment-analysis-model-vpc" {
 }
 
 resource "google_compute_subnetwork" "mumbai-subnet" {
-  name          = "mumbai-subnet"
+  name          = "mumbai"
   region        = "asia-south1"
   network       = google_compute_network.sentiment-analysis-model-vpc.name
-  ip_cidr_range = "10.1.0.0/24"
+  ip_cidr_range = "10.5.0.0/24"
 }
 
 resource "google_compute_subnetwork" "delhi-subnet" {
-  name          = "delhi-subnet"
+  name          = "delhi"
   region        = "asia-south2"
   network       = google_compute_network.sentiment-analysis-model-vpc.name
-  ip_cidr_range = "10.2.0.0/24"
+  ip_cidr_range = "10.4.0.0/24"
 }
 
 # Artifact Registry
