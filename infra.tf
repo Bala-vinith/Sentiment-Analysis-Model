@@ -47,6 +47,38 @@ resource "google_artifact_registry_repository" "my-repo" {
   }
 }
 
+#cloudbuild triggeer
+
+
+resource "google_cloudbuild_trigger" "github-trigger" {
+  name     = "github-trigger"
+  description = "Cloud Build trigger for GitHub repository"
+  github {
+    owner  = "Bala-vinith"
+    name   = "gcp-ml-model"
+    push {
+      branch = "main"  # Change this to your desired branch
+    }
+  }
+
+  build {
+    timeout = "1200s"  # Change this to your desired build timeout
+
+    steps {
+      name = "gcr.io/cloud-builders/docker"
+      args = ["build", "-t", "gcr.io/${var.project}/sentiment-analysis-model:latest", "."]
+    }
+
+    steps {
+      name = "gcr.io/cloud-builders/docker"
+      args = ["push", "gcr.io/${var.project}/sentiment-analysis-model:latest"]
+    }
+
+    images = ["gcr.io/${var.project}/sentiment-analysis-model:latest"]
+  }
+}
+
+
 # Cloud Run
 resource "google_cloud_run_service" "my-cloud-run-service" {
   name     = "sentiment-analysis-model"
