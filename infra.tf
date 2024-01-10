@@ -79,6 +79,5 @@ resource "google_cloud_run_service" "my_cloud_run_service" {
     egress_tag = google_compute_network.sentiment_analysis_model_vpc.self_link
   }
 }
-
   }
 }
