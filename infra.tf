@@ -66,15 +66,15 @@ resource "google_cloudbuild_trigger" "github-trigger" {
 
     steps {
       name = "gcr.io/cloud-builders/docker"
-      args = ["build", "-t", "gcr.io/${var.project}/sentiment-analysis-model:latest", "."]
+      args = ["build", "-t", "gcr.io/gcp-trainer-project-1/sentiment-analysis-model:latest", "."]
     }
 
     steps {
       name = "gcr.io/cloud-builders/docker"
-      args = ["push", "gcr.io/${var.project}/sentiment-analysis-model:latest"]
+      args = ["push", "gcr.io/gcp-trainer-project-1/sentiment-analysis-model:latest"]
     }
 
-    images = ["gcr.io/${var.project}/sentiment-analysis-model:latest"]
+    images = ["gcr.io/gcp-trainer-project-1/sentiment-analysis-model:latest"]
   }
 }
 
