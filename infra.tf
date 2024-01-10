@@ -64,12 +64,12 @@ resource "google_cloudbuild_trigger" "github-trigger" {
   build {
     timeout = "1200s"  # Change this to your desired build timeout
 
-    steps {
+    step {
       name = "gcr.io/cloud-builders/docker"
       args = ["build", "-t", "gcr.io/gcp-trainer-project-1/sentiment-analysis-model:latest", "."]
     }
 
-    steps {
+    step {
       name = "gcr.io/cloud-builders/docker"
       args = ["push", "gcr.io/gcp-trainer-project-1/sentiment-analysis-model:latest"]
     }
