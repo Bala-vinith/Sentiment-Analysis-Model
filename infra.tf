@@ -39,20 +39,21 @@ resource "google_compute_subnetwork" "delhi_subnet" {
   ip_cidr_range = "10.2.0.0/24"
 }
 
-# cloud storage
+#artifact registry
 
-resource "google_storage_bucket" "sentiment_analysis_model_vpc_bucket" {
-  name          = "<sentiment_analysis_model_vpc_bucket>"
-  location      = "<asia-south1>"
-  force_destroy = true
+resource "google_artifact_registry_repository" "example" {
+  repository_id = "example-repo"
+  project      = google_project.project.project_id
 }
 
-resource "google_storage_bucket_object" "upload_file" {
-  name   = "test1.xlxs"
-  bucket = google_storage_bucket.sentiment_analysis_model_vpc_bucket.name
-  source = "https://raw.githubusercontent.com/<github-bala-vinith>/<Sentiment-Analysis-Model>/<test1.xlsx>/<path-to-file-in-github>"
-  acl    = "publicRead"  # Adjust the ACL based on your requirements
+output "repo_location" {
+  value = google_artifact_registry_repository.example.location
 }
+
+output "repo_name" {
+  value = google_artifact_registry_repository.example.name
+}
+
 
 
 #cloud run
